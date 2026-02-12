@@ -1,0 +1,43 @@
+/**
+* @license
+*
+* Font Family: Khand
+* Designed by: Satya Rajpurohit
+* URL: https://www.fontshare.com/fonts/khand
+* © 2025 Indian Type Foundry
+*
+* Khand Regular
+
+*
+*/
+@font-face {
+  font-family: 'Khand';
+  src: url('./assets/fonts/Khand-Regular.woff2') format('woff2'),
+    url('./assets/fonts/Khand-Regular.woff') format('woff'),
+    url('./assets/fonts/Khand-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+/**
+* @license
+*
+* Font Family: Array
+* Designed by: Frode Helland
+* URL: https://www.fontshare.com/fonts/array
+* © 2025 Indian Type Foundry
+*
+* Array
+
+*
+*/
+@font-face {
+  font-family: 'Array';
+  src: url('./assets/fonts/Array-Regular.woff2') format('woff2'),
+    url('./assets/fonts/Array-Regular.woff') format('woff'),
+    url('./assets/fonts/Array-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}

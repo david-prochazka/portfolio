@@ -1,0 +1,205 @@
+@layer reset, base, components;
+
+@import "./reset.css" layer(reset);
+@import "./fonts.css" layer(base);
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    font-size: 100%;
+
+    --font-sans: "Khand", Arial, Helvetica, sans-serif;
+    --font-mono: "Array", "Courier New", Courier, ui-monospace, monospace;
+
+    --surface-low: oklch(9% 0.02 150);
+    --surface-mid: oklch(22% 0.03 150);
+    --surface-high: oklch(32% 0.03 150);
+    --text-strong: oklch(94% 0.02 255);
+    --accent: oklch(68% 0.15 150);
+    --accent-bright: oklch(74% 0.25 150);
+    --accent-soft: oklch(65% 0.15 150 / 0.2);
+    --border-subtle: oklch(32% 0.01 255 / 0.7);
+
+    --space-xs: clamp(0.5rem, 0.35rem + 0.8vw, 0.9rem);
+    --space-sm: clamp(0.9rem, 0.75rem + 0.9vw, 1.4rem);
+    --space-md: clamp(1.5rem, 1.25rem + 1.6vw, 2.5rem);
+    --space-lg: clamp(2rem, 1.5rem + 2vw, 4rem);
+
+    --radius-md: 0.8rem;
+    --radius-full: 999rem;
+    --shadow-soft: 0 0.8rem 2.5rem oklch(0% 0 0 / 0.35);
+
+    --duration-fast: 140ms;
+    --duration-mid: 300ms;
+    --duration-slow: 550ms;
+    --ease-lively: linear(0, 0.25 8%, 0.55 35%, 1);
+  }
+
+  body {
+    min-block-size: 100svh;
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    background: radial-gradient(circle at 80% 80%, var(--surface-mid), transparent 60%)
+        var(--surface-low);
+    color: var(--text-strong);
+    overflow-x: clip;
+    padding: 0;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--surface-low);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  img,
+  svg {
+    max-inline-size: 100%;
+    block-size: auto;
+  }
+}
+
+@layer components {
+  body > .container {
+    flex: none;
+  }
+
+  .container {
+    container: page / inline-size;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-xs);
+    max-inline-size: min(48rem, 100%);
+    min-block-size: 100svh;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 4vw, 2.5rem);
+    padding-block: clamp(3rem, 7vw, 5.5rem);
+  }
+
+  h1 {
+    font-size: clamp(1.6rem, 1rem + 3vw, 5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .link {
+    display: inline-block;
+    max-height: 1lh;
+    text-shadow: 0 1lh currentColor;
+    overflow: hidden;
+    vertical-align: bottom;
+
+    & .letter {
+      display: inline-block;
+      transition: transform var(--duration-fast) var(--ease-lively);
+      transition-delay: calc(sibling-index() * 10ms);
+    }
+
+    &:hover {
+      & .letter {
+        transform: translateY(-100%);
+      }
+    }
+  }
+
+  .subtitle {
+    font-family: var(--font-mono);
+    font-size: clamp(0.6rem, 0.8rem + 0.2vw, 1.2rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .intro {
+    max-inline-size: 40rem;
+    font-size: clamp(0.5rem, 0.9rem + 0.4vw, 1.1rem);
+    line-height: 1.8;
+    text-wrap: pretty;
+    margin-block: 1.2em;
+
+    & a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color var(--duration-mid) var(--ease-lively);
+
+      &:hover {
+        color: var(--accent-bright);
+      }
+    }
+  }
+
+  .info-grid {
+    container: info-list / inline-size;
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1;
+    text-transform: uppercase;
+
+    & svg {
+      flex: 0 0 1rem;
+      block-size: 1rem;
+    }
+
+    & a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color var(--duration-mid) var(--ease-lively);
+
+      &:hover {
+        color: var(--accent-bright);
+      }
+    }
+  }
+
+  @container info-list (inline-size >= 35rem) {
+    .info-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @container info-list (inline-size >= 58rem) {
+    .info-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (width >= 48rem) and (width < 80rem) {
+    .container {
+      padding-inline: clamp(2.5rem, 6vw, 3.5rem);
+    }
+  }
+
+  @media (width >= 80rem) {
+    .container {
+      padding-inline: clamp(3rem, 8vw, 5rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .link,
+    .letter,
+    .intro a,
+    .info-item a {
+      transition-duration: 0ms;
+    }
+  }
+}
